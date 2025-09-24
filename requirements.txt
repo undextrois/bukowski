@@ -1,0 +1,31 @@
+# requirements.txt - Lightweight dependencies for M1 Mac with 8GB RAM
+
+# Core ML and NLP (lightweight versions)
+torch>=1.12.0
+transformers>=4.21.0
+tokenizers>=0.13.0
+
+# Lightweight NLP processing
+spacy>=3.4.0
+# To install spacy model: python -m spacy download en_core_web_sm
+
+# Data processing
+pandas>=1.4.0
+numpy>=1.21.0
+scikit-learn>=1.1.0
+
+# Async HTTP for API calls
+aiohttp>=3.8.0
+asyncio
+
+# Utilities
+python-dateutil>=2.8.0
+typing-extensions>=4.3.0
+
+# Optional: For more advanced financial calculations
+# sympy>=1.10.0  # Symbolic math for financial formulas
+# matplotlib>=3.5.0  # For creating charts and visualizations
+
+# Development and testing (optional)
+# pytest>=7.0.0
+# pytest-asyncio>=0.19.0

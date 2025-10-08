@@ -175,24 +175,29 @@ def create_sample_training_data():
 def create_startup_script():
     """Generate startup scripts"""
 
+    # Linux / macOS startup script
+    bash_activate = "source venv/bin/activate" if USE_VENV else "# No venv used"
     bash_script = (
         "#!/bin/bash\n"
         "echo \"🏦 Starting Financial Chatbot...\"\n"
-        f"{'source venv/bin/activate' if USE_VENV else '# No venv used'}\n"
+        f"{bash_activate}\n"
         "python main.py\n"
     )
     Path("run.sh").write_text(bash_script)
     os.chmod("run.sh", 0o755)
     print("✅ Created run.sh")
 
+    # Windows startup script
+    windows_activate = "call venv\\Scripts\\activate" if USE_VENV else "rem No venv used"
     bat_script = (
         "@echo off\n"
         "echo 🏦 Starting Financial Chatbot...\n"
-        f"{'call venv\\Scripts\\activate' if USE_VENV else 'rem No venv used'}\n"
+        f"{windows_activate}\n"
         "python main.py\n"
     )
     Path("run.bat").write_text(bat_script)
     print("✅ Created run.bat (Windows)")
+
 
 
 def run_quick_test():

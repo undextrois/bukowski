@@ -13,6 +13,7 @@ import platform
 from pathlib import Path
 from typing import List, Tuple, Dict
 import importlib.util
+import shutil
 
 IS_WINDOWS = platform.system().lower() == "windows"
 USE_VENV = False
@@ -496,6 +497,54 @@ def run_quick_test() -> bool:
     
     return all_passed
 
+
+def organize_component_files() -> bool:
+    """Ensure components directory exists and move any loose files into it"""
+    print_header("Organizing Component Files")
+    
+    components_dir = Path("components")
+    components_dir.mkdir(exist_ok=True)
+
+    component_filenames = [
+        "intent_classifier.py",
+        "entity_extractor.py",
+        "response_generator.py",
+        "data_manager.py",
+        "model_trainer.py",
+    ]
+    
+    moved_files = []
+    created_stubs = []
+
+    for filename in component_filenames:
+        root_path = Path(filename)
+        target_path = components_dir / filename
+
+        if root_path.exists():
+            # Move existing file to components/
+            shutil.move(str(root_path), str(target_path))
+            moved_files.append(filename)
+        elif not target_path.exists():
+            # Create a minimal stub if missing
+            stub = f"class {Path(filename).stem.replace('_', ' ').title().replace(' ', '')}:\n    pass\n"
+            target_path.write_text(stub)
+            created_stubs.append(filename)
+
+    # Ensure __init__.py
+    init_file = components_dir / "__init__.py"
+    if not init_file.exists():
+        init_file.write_text("# Financial Chatbot Components\n")
+
+    if moved_files:
+        print_success(f"Moved to components/: {', '.join(moved_files)}")
+    if created_stubs:
+        print_warning(f"Created stub files: {', '.join(created_stubs)}")
+    if not moved_files and not created_stubs:
+        print_info("All component files already in place")
+
+    return True
+
+
 def print_next_steps():
     """Print what to do next"""
     print_header("Setup Complete!")
@@ -547,12 +596,14 @@ def main():
         (install_dependencies, "Dependency installation failed"),
         (setup_spacy_model, "spaCy model setup failed"),
         (create_project_structure, "Project structure creation failed"),
+        (organize_component_files, "Component organization failed"),  # 👈 added here
         (create_config_file, "Config file creation failed"),
         (create_sample_training_data, "Training data creation failed"),
         (create_startup_script, "Startup script creation failed"),
         (create_dev_requirements, "Requirements file creation failed"),
         (run_quick_test, "Import tests failed")
     ]
+
     
     for step_func, error_msg in steps:
         if not step_func():

@@ -540,8 +540,7 @@ def main():
         sys.exit(1)
     
     if not ask_for_venv():
-        print_error("Setup cancelled")
-        sys.exit(1)
+        print_warning("Proceeding without virtual environment")
     
     steps = [
         (setup_virtual_environment, "Virtual environment setup failed"),

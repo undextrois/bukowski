@@ -19,7 +19,7 @@ A lightweight, extensible financial chatbot built with open-source models from H
 ```bash
 # Clone or download the project files
 # Run the automated setup
-python setup.py
+python install.py
 
 # Activate virtual environment
 source venv/bin/activate

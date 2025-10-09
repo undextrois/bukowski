@@ -1,0 +1,21 @@
+{
+  "intents": {
+    "account_balance": [
+      "What's my balance?",
+      "Check balance",
+      "How much money do I have?",
+      "Show my account balance"
+    ],
+    "spending_analysis": [
+      "Spending this month?",
+      "Show spending",
+      "What did I spend on?",
+      "Analyze my expenses"
+    ],
+    "transaction_history": [
+      "Show recent transactions",
+      "What are my latest transactions?",
+      "Transaction history"
+    ]
+  }
+}

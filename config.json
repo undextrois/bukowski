@@ -1,0 +1,24 @@
+{
+  "model": {
+    "intent_model": "distilbert-base-uncased",
+    "max_length": 128,
+    "batch_size": 4,
+    "use_gpu": false
+  },
+  "data": {
+    "user_data_api": null,
+    "mock_data": true,
+    "api_timeout": 10
+  },
+  "training": {
+    "epochs": 3,
+    "learning_rate": 2e-05,
+    "warmup_steps": 50,
+    "base_model": "distilbert-base-uncased",
+    "output_dir": "./trained_models"
+  },
+  "logging": {
+    "level": "INFO",
+    "file": "logs/chatbot.log"
+  }
+}
